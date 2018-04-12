@@ -8,7 +8,7 @@ ARG CROWD_SHA256_CHECKSUM=71be4e94ff253b3b76ef4dfbb14fdbeb643ab0adc113d8df644720
 
 LABEL name="Atlassian Crowd base image" Description="This image is used to build Atlassian Crowd" Vendor="Atlassian" Version="${CROWD_VERSION}"
 
-ENV CROWD_DOWNLOAD_URL http://www.atlassian.com/software/crowd/downloads/binary/atlassian-crowd-${CROWD_VERSION}.tar.gz
+ENV CROWD_DOWNLOAD_URL https://www.atlassian.com/software/crowd/downloads/binary/atlassian-crowd-${CROWD_VERSION}.tar.gz
 
 ENV RUN_USER            atlassian
 ENV RUN_GROUP           atlassian
