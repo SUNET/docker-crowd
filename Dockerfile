@@ -35,4 +35,4 @@ USER atlassian
 WORKDIR ${CROWD_INSTALL}
 
 # Run Atlassian Crowd as a foreground process by default.
-CMD ["/usr/bin/start_atlassian_app.sh"]
+CMD ["/opt/atlassian/atlassian_app.sh"]
