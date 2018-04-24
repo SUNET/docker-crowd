@@ -43,7 +43,7 @@ rm -f                               "${CROWD_INSTALL}/apache-tomcat/conf/Catalin
     && rm -f                              "${CROWD_INSTALL}/apache-tomcat/conf/Catalina/localhost/openidserver.xml" 
 
 # Create the start up script for Crowd
-cat>/opt/atlassian/atlassian_app.sh<<'EOF'
+cat>/usr/bin/start_atlassian_app.sh<<'EOF'
 #!/bin/bash
 SERVER_XML="$CROWD_INSTALL/apache-tomcat/conf/server.xml"
 CURRENT_PROXY_NAME=$(xmlstarlet sel -t -v "Server/Service/Connector[@port="8095"]/@proxyName" "${SERVER_XML}")
@@ -59,6 +59,7 @@ then
 fi
 "${CROWD_INSTALL}/apache-tomcat/bin/catalina.sh" run
 EOF
+chmod +x /usr/bin/start_atlassian_app.sh
 
 # Add Spring bean configuration for the shibboleth filter
 xmlstarlet ed -L -a "_:beans/security:http[@authentication-manager-ref='authenticationManager']/security:custom-filter[@position='FORM_LOGIN_FILTER']" -t elem -n 'security:custom-filter' -v "" \
