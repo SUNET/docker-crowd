@@ -3,8 +3,8 @@ FROM docker.sunet.se/eduix/eduix-base:latest
 # Setup useful environment variables
 ENV CROWD_HOME     /var/atlassian/application-data/crowd
 ENV CROWD_INSTALL  /opt/atlassian/crowd
-ARG CROWD_VERSION=3.1.2
-ARG CROWD_SHA256_CHECKSUM=71be4e94ff253b3b76ef4dfbb14fdbeb643ab0adc113d8df64472034e807d45e
+ARG CROWD_VERSION=3.2.3
+ARG CROWD_SHA256_CHECKSUM=89dc92c8bff90a9e5cd41a06cbbdbae77a346ba071bd00bc0464700cbe40171f
 
 LABEL name="Atlassian Crowd base image" Description="This image is used to build Atlassian Crowd" Vendor="Atlassian" Version="${CROWD_VERSION}"
 
