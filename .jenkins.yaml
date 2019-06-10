@@ -1,3 +1,24 @@
 docker_name: eduix/crowd
-triggers:
-    cron: @daily
+docker_tags:
+    - "${GIT_LOCAL_BRANCH}"
+git:
+    branches:
+        - master
+        - stable
+        - staging
+    extensions:
+        checkout_local_branch: true
+clean_workspace: true
+
+extra_jobs:
+    - name: docker-crowd-daily
+      builders:
+        - docker
+      docker_name: eduix/crowd
+      git:
+        branch: master
+        extensions:
+            checkout_local_branch: true
+      triggers:
+        github_push: false
+        cron: @daily

@@ -1,4 +1,4 @@
-FROM docker.sunet.se/eduix/eduix-base:master
+FROM docker.sunet.se/eduix/eduix-base:stable
 
 # Setup useful environment variables
 ENV CROWD_HOME     /var/atlassian/application-data/crowd
