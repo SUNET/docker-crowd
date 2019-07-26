@@ -10,7 +10,7 @@ apt-get update && \
     apt-get -y dist-upgrade && \
     apt-get install -y \
         ssl-cert\
-        libmysql-java\
+        libmariadb-java\
     && apt-get -y autoremove \
     && apt-get autoclean
 
@@ -31,7 +31,7 @@ if [[ "${CROWD_SHA256_CHECKSUM}" != "$(sha256sum /opt/crowd.tar.gz | cut -d' ' -
 fi
 tar -xzf /opt/crowd.tar.gz --directory "${CROWD_INSTALL}" --strip-components=1 --no-same-owner \
     && rm -f /opt/crowd.tar.gz \
-    && ln -s /usr/share/java/mysql-connector-java.jar /opt/atlassian/crowd/apache-tomcat/lib/mysql-connector-java.jar \
+    && ln -s /usr/share/java/mariadb-java-client.jar /opt/atlassian/crowd/apache-tomcat/lib/mariadb-java-client.jar \
     && chown -R ${RUN_USER}:${RUN_GROUP}     "${CROWD_INSTALL}/apache-tomcat/bin" \
     && chown -R ${RUN_USER}:${RUN_GROUP}     "${CROWD_INSTALL}/apache-tomcat/work" \
     && chown -R ${RUN_USER}:${RUN_GROUP}     "${CROWD_INSTALL}/apache-tomcat/temp" \
