@@ -36,6 +36,7 @@ tar -xzf /opt/crowd.tar.gz --directory "${CROWD_INSTALL}" --strip-components=1 -
     && chown -R ${RUN_USER}:${RUN_GROUP}     "${CROWD_INSTALL}/apache-tomcat/work" \
     && chown -R ${RUN_USER}:${RUN_GROUP}     "${CROWD_INSTALL}/apache-tomcat/temp" \
     && chown -R ${RUN_USER}:${RUN_GROUP}     "${CROWD_INSTALL}/apache-tomcat/logs" \
+    && chown ${RUN_USER}:${RUN_GROUP}        "${CROWD_INSTALL}/apache-tomcat/conf/server.xml" \
     && echo -e                            "\ncrowd.home=${CROWD_HOME}" >> "${CROWD_INSTALL}/crowd-webapp/WEB-INF/classes/crowd-init.properties"   
 
 # Remove extra webapps from Catalina
