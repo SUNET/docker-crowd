@@ -1,7 +1,10 @@
 docker_name: eduix/crowd
+docker_tags:
+  - "master"
 builders:
   - docker
 git:
+  branch: master
   extensions:
     checkout_local_branch: true
 clean_workspace: true
@@ -12,12 +15,7 @@ extra_jobs:
         branch: master
       triggers:
         github_push: false
-        cron: @daily
-    - name: docker-crowd-master
-      docker_tags:
-        - "master"
-      git:
-        branch: master
+        cron: "@daily"
     - name: docker-crowd-staging
       docker_tags:
         - "staging"
