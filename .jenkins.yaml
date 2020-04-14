@@ -1,6 +1,6 @@
 docker_name: eduix/crowd
 docker_tags:
-    - "${GIT_BRANCH#origin/}"
+    - "${ENV,var=GIT_LOCAL_BRANCH}"
 git:
     branches:
         - master
