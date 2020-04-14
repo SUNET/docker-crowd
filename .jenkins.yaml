@@ -1,24 +1,30 @@
 docker_name: eduix/crowd
-docker_tags:
-    - "\"\"\"${scmVars.GIT_LOCAL_BRANCH}\"\"\""
+builders:
+  - docker
 git:
-    branches:
-        - master
-        - stable
-        - staging
-    extensions:
-        checkout_local_branch: true
+  extensions:
+    checkout_local_branch: true
 clean_workspace: true
 
 extra_jobs:
     - name: docker-crowd-daily
-      builders:
-        - docker
-      docker_name: eduix/crowd
       git:
         branch: master
-        extensions:
-            checkout_local_branch: true
       triggers:
         github_push: false
         cron: @daily
+    - name: docker-crowd-master
+      docker_tags:
+        - "master"
+      git:
+        branch: master
+    - name: docker-crowd-staging
+      docker_tags:
+        - "staging"
+      git:
+        branch: staging
+    - name: docker-crowd-stable
+      docker_tags:
+        - "stable"
+      git:
+        branch: stable
