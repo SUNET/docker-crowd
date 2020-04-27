@@ -25,6 +25,7 @@ extra_jobs:
       triggers:
         github_push: false
         cron: "@daily"
+      downstream: []
     - name: docker-crowd-master
       builders:
         - docker
@@ -32,6 +33,7 @@ extra_jobs:
         - "master"
       git:
         branch: master
+      downstream: []
     - name: docker-crowd-staging
       builders:
         - docker
@@ -39,6 +41,7 @@ extra_jobs:
         - "staging"
       git:
         branch: staging
+      downstream: []
     - name: docker-crowd-stable
       builders:
         - docker
@@ -46,3 +49,4 @@ extra_jobs:
         - "stable"
       git:
         branch: stable
+      downstream: []
