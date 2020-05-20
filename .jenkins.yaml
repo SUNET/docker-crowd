@@ -1,26 +1,31 @@
 docker_name: eduix/crowd
 docker_tags:
     - "${GIT_LOCAL_BRANCH}"
-docker_skip_tag_as_latest: true
+builders:
+  - docker
 git:
-    branches:
-        - master
-        - stable
-        - staging
-    extensions:
-        checkout_local_branch: true
+  branch: master
+  extensions:
+    checkout_local_branch: true
+triggers:
+  cron: "@daily"
 clean_workspace: true
+downstream:
+  - docker-crowd-staging
+  - docker-crowd-stable
 
 extra_jobs:
-    - name: docker-crowd-daily
+    - name: docker-crowd-staging
       builders:
         - docker
-      docker_name: eduix/crowd
-      docker_skip_tag_as_latest: false
+      docker_skip_tag_as_latest: true
       git:
-        branch: master
-        extensions:
-            checkout_local_branch: true
-      triggers:
-        github_push: false
-        cron: "@daily"
+        branch: staging
+      downstream: []
+    - name: docker-crowd-stable
+      builders:
+        - docker
+      docker_skip_tag_as_latest: true
+      git:
+        branch: stable
+      downstream: []
