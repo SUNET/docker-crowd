@@ -47,9 +47,10 @@ rm -f                               "${CROWD_INSTALL}/apache-tomcat/conf/Catalin
 cat>/opt/atlassian/atlassian_app.sh<<'EOF'
 #!/bin/bash
 SERVER_XML="$CROWD_INSTALL/apache-tomcat/conf/server.xml"
-CURRENT_PROXY_NAME=$(xmlstarlet sel -t -v "Server/Service/Connector[@port="8095"]/@proxyName" "${SERVER_XML}")
 if [ -w "${SERVER_XML}" ]
 then
+  CURRENT_PROXY_NAME=$(xmlstarlet sel -t -v "Server/Service/Connector[@port="8095"]/@proxyName" "${SERVER_XML}")
+
   if [[ ! -z "${PROXY_NAME}" ]] && [[ ! -z "${CURRENT_PROXY_NAME}" ]]; then
     xmlstarlet ed --inplace -u "Server/Service/Connector[@port='8095']/@proxyName" -v "${PROXY_NAME}" -u "Server/Service/Connector[@port='8095']/@proxyPort" -v "${PROXY_PORT}" -u "Server/Service/Connector[@port='8095']/@scheme" -v "${PROXY_SCHEME}" "${SERVER_XML}"
   elif [ -z "${PROXY_NAME}" ]; then
@@ -57,10 +58,18 @@ then
   elif [ -z "${CURRENT_PROXY_NAME}" ]; then
     xmlstarlet ed --inplace -a "Server/Service/Connector[@port='8095']" -t attr -n scheme -v "${PROXY_SCHEME}" -a "Server/Service/Connector[@port='8095']" -t attr -n proxyPort -v "${PROXY_PORT}" -a "Server/Service/Connector[@port='8095']" -t attr -n proxyName -v "${PROXY_NAME}" "${SERVER_XML}"
   fi
+
+  CURRENT_SECURE_COOKIE=$(xmlstarlet sel -t -v "Server/Service/Connector[@port="8095"]/@secure" "${SERVER_XML}")
+
+  if [ ! -z "${SECURE_COOKIE}" ]; then
+    if [ -z "${CURRENT_SECURE_COOKIE}"]; then
+      xmlstarlet ed --inplace -a "Server/Service/Connector[@port='8095']" -t attr -n secure -v "${SECURE_COOKIE}" "${SERVER_XML}"
+    else
+      xmlstarlet ed --inplace -u "Server/Service/Connector[@port='8095']/@secure" -v "${SECURE_COOKIE}" "${SERVER_XML}"
+    fi
+  fi
 fi
-if [ ! -z "${SECURE_COOKIE}" ]; then
-  xmlstarlet ed --inplace -a "Server/Service/Connector[@port='8095']" -t attr -n secure -v "${SECURE_COOKIE}" "${SERVER_XML}"
-fi
+
 "${CROWD_INSTALL}/apache-tomcat/bin/catalina.sh" run
 EOF
 chmod +x /opt/atlassian/atlassian_app.sh
