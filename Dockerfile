@@ -1,12 +1,12 @@
 # The tags that are recommended to be used for
 # the base image are: latest, staging, stable
-FROM docker.sunet.se/eduix/eduix-base:stable
+FROM docker.sunet.se/eduix/eduix-base:master
 
 # Setup useful environment variables
 ENV CROWD_HOME     /var/atlassian/application-data/crowd
 ENV CROWD_INSTALL  /opt/atlassian/crowd
-ARG CROWD_VERSION=4.4.0
-ARG CROWD_SHA256_CHECKSUM=21f58135d39ac6621eab24300fcb677eac49939714c69acff0026ca465dbee46
+ARG CROWD_VERSION=4.4.3
+ARG CROWD_SHA256_CHECKSUM=8d96e8ba7e2c8209bc96ccf02f9ab784dd581ddbc5f132d637d7e8922a066f7f
 
 LABEL name="Atlassian Crowd base image" Description="This image is used to build Atlassian Crowd" Vendor="Atlassian" Version="${CROWD_VERSION}"
 
