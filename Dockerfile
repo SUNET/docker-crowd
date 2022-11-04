@@ -21,7 +21,7 @@ COPY setup.sh /opt/sunet/setup.sh
 RUN /opt/sunet/setup.sh
 
 # Add crowd-shibboleth-filter. Have to run mvn package before building docker image
-COPY shibboleth-filter-1.1.3.jar "${CROWD_INSTALL}/crowd-webapp/WEB-INF/lib/"
+COPY shibboleth-filter-1.1.4.jar "${CROWD_INSTALL}/crowd-webapp/WEB-INF/lib/"
 
 # Set volume mount points for installation and home directory. Changes to the
 # home directory needs to be persisted as well as parts of the installation
